@@ -129,8 +129,8 @@ public class DirectoryPickerModule extends ReactContextBaseJavaModule implements
         // mCallback.invoke(response);
         
         // testing callback
-        response.putString("resultCode", resultCode);
-        response.putString("requestCode", requestCode);
+        response.putInt("resultCode", resultCode);
+        response.putInt("requestCode", requestCode);
         response.putString("test", "test");
         mCallback.invoke(response);
         return;

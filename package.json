@@ -5,10 +5,10 @@
   "main": "index.android.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lokdevp/react-native-directory-picker.git"
+    "url": "https://github.com/henrikrank/react-native-directory-picker.git"
   },
   "nativePackage": true,
-  "author": "Lokesh Dev <lokdevp@gmail.com>",
+  "author": "Henrik Rank <rank.henrik@gmail.com>",
   "license": "ISC",
   "keywords": [
     "react-native",

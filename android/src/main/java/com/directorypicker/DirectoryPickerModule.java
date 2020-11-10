@@ -134,27 +134,27 @@ public class DirectoryPickerModule extends ReactContextBaseJavaModule implements
         response.putString("test", "test");
         mCallback.invoke(response);
         return;
-        //robustness code
-        if (mCallback == null || requestCode != REQUEST_LAUNCH_DIRECTORY_CHOOSER) {
-            return;
-        }
-        // user cancel
-        if (resultCode != Activity.RESULT_OK) {
-            response.putBoolean("didCancel", true);
-            mCallback.invoke(response);
-            return;
-        }
+        // //robustness code
+        // if (mCallback == null || requestCode != REQUEST_LAUNCH_DIRECTORY_CHOOSER) {
+        //     return;
+        // }
+        // // user cancel
+        // if (resultCode != Activity.RESULT_OK) {
+        //     response.putBoolean("didCancel", true);
+        //     mCallback.invoke(response);
+        //     return;
+        // }
 
-        //Handle Directory
-        if (requestCode == REQUEST_LAUNCH_DIRECTORY_CHOOSER) {
-            Uri treeUri = data.getData();
-            DocumentFile pickedDir = DocumentFile.fromTreeUri(mReactContext, treeUri);
-            response.putString("path", getPath(mReactContext, treeUri));
-            response.putString("dirname", pickedDir.getName());
-            response.putString("decodedUri", Uri.decode(treeUri.toString()));
-            mCallback.invoke(response);
-            return;
-        }
+        // //Handle Directory
+        // if (requestCode == REQUEST_LAUNCH_DIRECTORY_CHOOSER) {
+        //     Uri treeUri = data.getData();
+        //     DocumentFile pickedDir = DocumentFile.fromTreeUri(mReactContext, treeUri);
+        //     response.putString("path", getPath(mReactContext, treeUri));
+        //     response.putString("dirname", pickedDir.getName());
+        //     response.putString("decodedUri", Uri.decode(treeUri.toString()));
+        //     mCallback.invoke(response);
+        //     return;
+        // }
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)

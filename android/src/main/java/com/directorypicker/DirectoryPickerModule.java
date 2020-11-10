@@ -129,10 +129,10 @@ public class DirectoryPickerModule extends ReactContextBaseJavaModule implements
         // mCallback.invoke(response);
         
         // testing callback
-        response.putString("resultCode", resultCode)
+        response.putString("resultCode", resultCode);
         response.putString("requestCode", requestCode);
-        response.putString("test", "test")
-        mCallback.invoke(response)
+        response.putString("test", "test");
+        mCallback.invoke(response);
         return;
         //robustness code
         if (mCallback == null || requestCode != REQUEST_LAUNCH_DIRECTORY_CHOOSER) {

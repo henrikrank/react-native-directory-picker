@@ -119,27 +119,52 @@ public class DirectoryPickerModule extends ReactContextBaseJavaModule implements
       onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * This method was buggy on my app using Android SDK 28
+     * All worked well until I chose a directory and the app crashed in this method.
+     * Turns out ActivityCompat and DocumentFile packages need AndroidX import paths
+     * 
+     * As a workaround I just removed the unessential logic for my app.
+     */
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
 
-      //robustness code
-      if (mCallback == null || requestCode != REQUEST_LAUNCH_DIRECTORY_CHOOSER) {
-        return;
-      }
-      // user cancel
-      if (resultCode != Activity.RESULT_OK) {
-          response.putBoolean("didCancel", true);
-          mCallback.invoke(response);
-          return;
-      }
+        // Removed this in support of a more general error
+        //   if (mCallback == null || requestCode != REQUEST_LAUNCH_DIRECTORY_CHOOSER) {
+        //     return;
+        //   }
 
-        //Handle Directory
-      if (requestCode == REQUEST_LAUNCH_DIRECTORY_CHOOSER) {
-        Uri treeUri = data.getData();
-        response.putString("path", getPath(mReactContext, treeUri)); 
-        response.putString("decodedUri", Uri.decode(treeUri.toString()));
+        // Should never happen
+        if (mCallback == null) {
+            return;
+        }
+
+        // User cancelled
+        if (resultCode != Activity.RESULT_OK) {
+            response.putBoolean("didCancel", true);
+        }
+
+        // User chose a directory
+        else if (requestCode == REQUEST_LAUNCH_DIRECTORY_CHOOSER) {
+
+            // In the repo this was forked from here is the logic to get a filename 
+            // from the Activity result, but since I only needed a directory path
+            // and I had trouble getting the DocumentFile class to work on Android SDK 28
+            // I just omitted the line
+            // 
+            // As an alternative, you can figure out the directory name yourself by spitting the path string.
+            Uri treeUri = data.getData();
+            // DocumentFile pickedDir = DocumentFile.fromTreeUri(mReactContext, treeUri);
+            response.putString("path", getPath(mReactContext, treeUri)); 
+            // response.putString("dirname", pickedDir.getName());
+            response.putString("decodedUri", Uri.decode(treeUri.toString()));
+        }
+
+        // User chose an invalid directory or other error
+        else {
+            response.putString("error", "GENERAL_ERROR");
+        }
+
         mCallback.invoke(response);
-        return;
-      }     
     }       
 
     @TargetApi(Build.VERSION_CODES.KITKAT)

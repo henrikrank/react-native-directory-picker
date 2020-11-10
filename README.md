@@ -1,6 +1,17 @@
 # react-native-directory-picker
 A React Native module that allows you to use native UI to select a directory from the device library
 
+## :warning: What is different in this fork
+I had trouble using the library on Android SDK version 28 (Android 9). The app kept crashing after selecting a directory.
+I tracked down the issue to missing Android support packages. The import URL for DocumentFile should be updated to 
+match the entry in https://developer.android.com/jetpack/androidx/migrate/class-mappings, but I was unable to get 
+the library working even after this. As a workaround, I just removed the line using the DocumentFile class.
+
+In my opinion, the DocumentFile class is not needed as it is only used to get a filename from the directory picker, 
+which does not make sense, since we are picking directories, not files. 
+
+Feel free to submit an issue or PR if you come up with a more elegant solution. 
+
 ###  :warning: Using this component is not recommended. This is a workaround.
 
 ## Install
@@ -51,8 +62,6 @@ import DirectoryPickerManager from 'react-native-directory-picker';
   ```
 
 ## News
-### Compatible with Android X
 ### Compatible with all versions of RN
 ### Compatible with files from Google Drive
 ### Requesting permission if not exist
-### Retrieving fileName and file type

@@ -9,7 +9,6 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 
-import androidx.documentfile.provider.DocumentFile;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -137,9 +136,7 @@ public class DirectoryPickerModule extends ReactContextBaseJavaModule implements
         //Handle Directory
         // Activity.RESULT_OK = -1
         Uri treeUri = data.getData();
-        DocumentFile pickedDir = DocumentFile.fromTreeUri(mReactContext, treeUri);
         response.putString("path", getPath(mReactContext, treeUri));
-        response.putString("dirname", pickedDir.getName());
         response.putString("decodedUri", Uri.decode(treeUri.toString()));
         mCallback.invoke(response);
         return;

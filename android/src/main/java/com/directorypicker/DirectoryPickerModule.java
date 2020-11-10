@@ -136,15 +136,12 @@ public class DirectoryPickerModule extends ReactContextBaseJavaModule implements
 
         //Handle Directory
         // Activity.RESULT_OK = -1
-        if (requestCode == Activity.RESULT_OK) {
-            Uri treeUri = data.getData();
-            DocumentFile pickedDir = DocumentFile.fromTreeUri(mReactContext, treeUri);
-            response.putString("path", getPath(mReactContext, treeUri));
-            response.putString("dirname", pickedDir.getName());
-            response.putString("decodedUri", Uri.decode(treeUri.toString()));
-            mCallback.invoke(response);
-            return;
-        }
+        Uri treeUri = data.getData();
+        DocumentFile pickedDir = DocumentFile.fromTreeUri(mReactContext, treeUri);
+        response.putString("path", getPath(mReactContext, treeUri));
+        response.putString("dirname", pickedDir.getName());
+        response.putString("decodedUri", Uri.decode(treeUri.toString()));
+        mCallback.invoke(response);
         return;
         // //robustness code
         // if (mCallback == null || requestCode != REQUEST_LAUNCH_DIRECTORY_CHOOSER) {
